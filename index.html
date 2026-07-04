@@ -7,25 +7,22 @@
 <meta name="description" content="Harmonie Yacht — Yacht privatisé à Montpellier, Port de Carnon. Offres entreprises pour vos événements corporate en Méditerranée." />
 
 <!-- ============================================================
-     HARMONIE YACHT — Brochure entreprises
+     HARMONIE YACHT — Brochure entreprises · édition "signature"
      Fichier autonome. Seule dépendance externe : Google Fonts.
-     Esthétique : claire, aérée, épurée — dans la continuité
-     du site harmonie-yacht.fr.
 
      REMPLACER LES PHOTOS :
-       Chaque visuel est un bloc .photo-placeholder.
-       Il suffit de renseigner la propriété CSS background-image
+       Chaque visuel est un bloc .photo-media / .hero-bg-img.
+       Renseigner la propriété CSS background-image
        (voir les commentaires "Remplacer par votre photo").
      ============================================================ -->
 
-<!-- Google Fonts : Cormorant Garamond (display) + Inter (body) -->
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
 
 <style>
 /* ===========================================================
-   DESIGN TOKENS
+   TOKENS
    =========================================================== */
 :root {
   --navy:       #1B3A5C;
@@ -36,16 +33,16 @@
   --sand:       #FBF8F3;
   --white:      #FFFFFF;
 
-  --ink:        #24384C;                 /* texte courant */
-  --muted:      rgba(27, 58, 92, 0.62);  /* texte secondaire */
-  --line:       rgba(27, 58, 92, 0.12);  /* filets clairs */
+  --ink:        #24384C;
+  --muted:      rgba(27, 58, 92, 0.62);
+  --line:       rgba(27, 58, 92, 0.12);
   --line-light: rgba(255, 255, 255, 0.14);
 
   --ff-display: "Cormorant Garamond", Georgia, "Times New Roman", serif;
   --ff-body:    "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 
   --ease:       cubic-bezier(0.22, 1, 0.36, 1);
-  --radius:     14px;   /* photos & grandes cartes */
+  --radius:     14px;
   --maxw:       1180px;
 
   --shadow-soft: 0 30px 60px -34px rgba(27, 58, 92, 0.28);
@@ -53,11 +50,11 @@
 }
 
 /* ===========================================================
-   RESET / BASE
+   BASE
    =========================================================== */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
 html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+html.cur * { cursor: none !important; }
 
 body {
   font-family: var(--ff-body);
@@ -69,242 +66,226 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-
 img { max-width: 100%; display: block; }
 a { color: inherit; text-decoration: none; }
 ::selection { background: var(--gold); color: var(--white); }
 
-/* ===========================================================
-   PRIMITIVES
-   =========================================================== */
-.wrap {
-  width: 100%;
-  max-width: var(--maxw);
-  margin: 0 auto;
-  padding: 0 44px;
-}
-
-.eyebrow {
-  font-family: var(--ff-body);
-  font-weight: 400;
-  font-size: 0.7rem;
-  letter-spacing: 0.42em;
-  text-transform: uppercase;
-  color: var(--gold);
-}
-
-/* Petit filet doré centré — motif récurrent sous les titres */
-.rule {
-  width: 54px;
-  height: 1px;
-  background: var(--gold);
-  margin: 26px auto 0;
-  transform-origin: center;
-}
-.rule.left { margin-left: 0; }
-
-.display {
-  font-family: var(--ff-display);
-  font-weight: 400;
-  line-height: 1.08;
-  letter-spacing: 0.005em;
-}
-.italic { font-style: italic; }
-.gold { color: var(--gold); }
-
+.wrap { width: 100%; max-width: var(--maxw); margin: 0 auto; padding: 0 44px; }
 section { position: relative; }
 
-/* Titre de section commun */
+.eyebrow {
+  font-weight: 400; font-size: 0.7rem; letter-spacing: 0.42em;
+  text-transform: uppercase; color: var(--gold);
+}
+
+/* filet doré — se déploie quand la section apparaît */
+.rule {
+  width: 54px; height: 1px; background: var(--gold);
+  margin: 26px auto 0; transform: scaleX(0); transform-origin: center;
+  transition: transform 1.1s var(--ease) 0.45s;
+}
+.in .rule, .reveal.in .rule { transform: scaleX(1); }
+
 .head { text-align: center; margin-bottom: 74px; }
 .head .eyebrow { display: block; margin-bottom: 22px; }
 .head h2 {
-  font-family: var(--ff-display);
-  font-weight: 400;
-  font-size: clamp(2.4rem, 5vw, 3.6rem);
-  line-height: 1.08;
-  color: var(--navy);
+  font-family: var(--ff-display); font-weight: 400;
+  font-size: clamp(2.4rem, 5vw, 3.6rem); line-height: 1.08; color: var(--navy);
 }
 .head h2 em { font-style: italic; color: var(--gold); }
-.head p {
-  max-width: 560px;
-  margin: 24px auto 0;
-  color: var(--muted);
-  font-size: 1.02rem;
+.head p { max-width: 560px; margin: 24px auto 0; color: var(--muted); font-size: 1.02rem; }
+
+/* ===========================================================
+   GRAIN photographique (très léger, esprit pellicule)
+   =========================================================== */
+.grain {
+  position: fixed; inset: -50%; z-index: 240; pointer-events: none; opacity: 0.05;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='240' height='240' filter='url(%23n)'/%3E%3C/svg%3E");
+  animation: grain 9s steps(10) infinite;
+}
+@keyframes grain {
+  0%,100% { transform: translate(0,0); } 10% { transform: translate(-3%,-4%); }
+  30% { transform: translate(4%,2%); } 50% { transform: translate(-2%,5%); }
+  70% { transform: translate(5%,-3%); } 90% { transform: translate(-4%,3%); }
 }
 
 /* ===========================================================
-   SCROLL PROGRESS (barre dorée en haut)
+   PRELOADER — rideau signature
+   =========================================================== */
+.preloader {
+  position: fixed; inset: 0; z-index: 320; background: var(--navy-deep);
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 26px;
+  transition: transform 1.1s cubic-bezier(0.76, 0, 0.24, 1) 0.15s, visibility 0s 1.4s;
+}
+body.ready .preloader { transform: translateY(-101%); visibility: hidden; }
+.pre-mark {
+  font-family: var(--ff-body); font-weight: 400; font-size: 0.9rem;
+  text-transform: uppercase; color: var(--cream);
+  letter-spacing: 0.2em; opacity: 0;
+  animation: preMark 1.6s var(--ease) 0.1s forwards;
+}
+@keyframes preMark { to { opacity: 1; letter-spacing: 0.58em; } }
+.pre-sub {
+  font-family: var(--ff-display); font-style: italic; font-size: 1.05rem;
+  color: var(--gold); opacity: 0; animation: preFade 1.2s var(--ease) 0.55s forwards;
+}
+@keyframes preFade { to { opacity: 1; } }
+.pre-line {
+  width: 200px; height: 1px; background: rgba(201,168,76,0.25);
+  position: relative; overflow: hidden;
+}
+.pre-line::after {
+  content: ""; position: absolute; inset: 0; background: var(--gold);
+  transform: scaleX(0); transform-origin: left;
+  animation: preLine 1.5s var(--ease) 0.35s forwards;
+}
+@keyframes preLine { to { transform: scaleX(1); } }
+
+/* ===========================================================
+   CURSEUR PERSONNALISÉ (desktop uniquement)
+   =========================================================== */
+.cursor-dot {
+  position: fixed; z-index: 310; top: 0; left: 0; width: 6px; height: 6px;
+  border-radius: 50%; background: var(--gold); pointer-events: none;
+  transform: translate(-50%,-50%); opacity: 0;
+}
+.cursor-ring {
+  position: fixed; z-index: 309; top: 0; left: 0; width: 38px; height: 38px;
+  border-radius: 50%; border: 1px solid rgba(201,168,76,0.65); pointer-events: none;
+  display: flex; align-items: center; justify-content: center;
+  transform: translate(-50%,-50%); opacity: 0;
+  transition: width 0.35s var(--ease), height 0.35s var(--ease),
+              background 0.35s var(--ease), border-color 0.35s var(--ease);
+}
+.cursor-ring .cursor-label {
+  font-size: 0.56rem; letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--navy); opacity: 0; transition: opacity 0.3s var(--ease);
+}
+.cursor-ring.grow { width: 62px; height: 62px; background: rgba(201,168,76,0.10); }
+.cursor-ring.view { width: 84px; height: 84px; background: rgba(245,240,232,0.92); border-color: transparent; }
+.cursor-ring.view .cursor-label { opacity: 1; }
+
+/* ===========================================================
+   PROGRESSION + TOP BAR
    =========================================================== */
 .progress {
-  position: fixed;
-  top: 0; left: 0;
-  height: 2px;
-  width: 0%;
+  position: fixed; top: 0; left: 0; height: 2px; width: 0%;
   background: linear-gradient(90deg, var(--gold-soft), var(--gold));
-  z-index: 200;
-  transition: width 0.1s linear;
+  z-index: 260;
 }
-
-/* ===========================================================
-   TOP BAR
-   =========================================================== */
 .topbar {
-  position: fixed;
-  top: 0; left: 0; right: 0;
-  z-index: 150;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+  position: fixed; top: 0; left: 0; right: 0; z-index: 250;
+  display: flex; align-items: center; justify-content: space-between;
   padding: 26px 44px;
-  transition: padding 0.4s var(--ease), background 0.4s var(--ease),
-              box-shadow 0.4s var(--ease), backdrop-filter 0.4s var(--ease);
+  transition: padding 0.4s var(--ease), background 0.4s var(--ease), box-shadow 0.4s var(--ease);
 }
 .topbar.scrolled {
-  padding: 16px 44px;
-  background: rgba(251, 248, 243, 0.82);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
+  padding: 15px 44px;
+  background: rgba(251, 248, 243, 0.85);
+  backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
   box-shadow: 0 1px 0 var(--line);
 }
 .wordmark {
-  font-family: var(--ff-body);
-  font-weight: 400;
-  font-size: 0.82rem;
-  letter-spacing: 0.4em;
-  text-transform: uppercase;
-  color: var(--white);
-  transition: color 0.4s var(--ease);
+  font-weight: 400; font-size: 0.82rem; letter-spacing: 0.4em;
+  text-transform: uppercase; color: var(--white); transition: color 0.4s var(--ease);
 }
 .topbar.scrolled .wordmark { color: var(--navy); }
 .topbar-cta {
-  font-size: 0.66rem;
-  letter-spacing: 0.28em;
-  text-transform: uppercase;
-  color: var(--white);
-  padding: 10px 20px;
-  border: 1px solid rgba(255,255,255,0.5);
+  font-size: 0.66rem; letter-spacing: 0.28em; text-transform: uppercase;
+  color: var(--white); padding: 10px 20px; border: 1px solid rgba(255,255,255,0.5);
   transition: color 0.4s var(--ease), border-color 0.4s var(--ease), background 0.3s var(--ease);
 }
 .topbar.scrolled .topbar-cta { color: var(--navy); border-color: var(--line); }
 .topbar-cta:hover { background: var(--gold); border-color: var(--gold); color: var(--white); }
 
 /* ===========================================================
-   REVEAL
+   REVEALS
    =========================================================== */
 .reveal {
-  opacity: 0;
-  transform: translateY(28px);
-  transition: opacity 0.9s var(--ease), transform 0.9s var(--ease);
+  opacity: 0; transform: translateY(30px);
+  transition: opacity 1s var(--ease), transform 1s var(--ease);
   transition-delay: var(--d, 0s);
   will-change: opacity, transform;
 }
 .reveal.in { opacity: 1; transform: none; }
 
+/* Titres masqués — chaque ligne monte depuis son masque */
+.lm { display: block; overflow: hidden; padding-bottom: 0.08em; margin-bottom: -0.08em; }
+.ln { display: block; transform: translateY(115%); }
+body.ready .hero .ln,
+.reveal.in .ln { animation: lineUp 1.25s var(--ease) forwards; animation-delay: var(--dd, 0s); }
+@keyframes lineUp { to { transform: none; } }
+
 /* ===========================================================
    1 · HERO
    =========================================================== */
 .hero {
-  position: relative;
-  min-height: 100svh;
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  overflow: hidden;
-  color: var(--white);
+  position: relative; min-height: 100svh; min-height: 100vh;
+  display: flex; align-items: center; justify-content: center;
+  text-align: center; overflow: hidden; color: var(--white);
 }
-.hero-bg {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  overflow: hidden;
-  will-change: transform;
-}
-/* Remplacer par votre photo : hero-bg.jpg
-   (yacht au coucher de soleil, plein cadre) */
+.hero-bg { position: absolute; inset: 0; z-index: 0; overflow: hidden; will-change: transform; }
+/* Remplacer par votre photo : hero-bg.jpg (yacht au coucher de soleil, plein cadre) */
 .hero-bg-img {
-  position: absolute;
-  inset: -6%;
+  position: absolute; inset: -6%;
   background-color: #7d8c99;
   background-image: url("hero-bg.jpg");
-  background-size: cover;
-  background-position: center;
-  animation: kenburns 18s var(--ease) infinite alternate;
+  background-size: cover; background-position: center;
+  animation: kenburns 20s var(--ease) infinite alternate;
 }
-@keyframes kenburns {
-  from { transform: scale(1.06); }
-  to   { transform: scale(1.16); }
-}
-/* Voile clair et chaud, dans l'esprit du site */
+@keyframes kenburns { from { transform: scale(1.05); } to { transform: scale(1.16) translateY(-1.5%); } }
 .hero-veil {
-  position: absolute;
-  inset: 0;
-  z-index: 1;
+  position: absolute; inset: 0; z-index: 1;
   background:
-    linear-gradient(180deg, rgba(245,240,232,0.10) 0%, rgba(27,58,92,0.18) 45%, rgba(15,34,56,0.52) 100%),
-    radial-gradient(120% 90% at 50% 40%, rgba(255,255,255,0.08), rgba(15,34,56,0.28) 100%);
+    linear-gradient(180deg, rgba(245,240,232,0.10) 0%, rgba(27,58,92,0.20) 45%, rgba(15,34,56,0.55) 100%),
+    radial-gradient(120% 90% at 50% 40%, rgba(255,255,255,0.08), rgba(15,34,56,0.30) 100%);
 }
+.hero-canvas { position: absolute; inset: 0; z-index: 2; pointer-events: none; }
 
-.hero-content { position: relative; z-index: 3; padding: 0 28px; }
+.hero-content { position: relative; z-index: 4; padding: 0 28px; }
 .hero .eyebrow { display: block; margin-bottom: 30px; color: var(--gold-soft); }
 .hero-title {
-  font-family: var(--ff-display);
-  font-weight: 300;
-  font-size: clamp(3.4rem, 9vw, 7rem);
-  line-height: 0.98;
-  letter-spacing: 0.01em;
-  color: var(--white);
-  text-shadow: 0 2px 40px rgba(15,34,56,0.35);
+  font-family: var(--ff-display); font-weight: 300;
+  font-size: clamp(3.2rem, 9vw, 7rem); line-height: 1.02; letter-spacing: 0.01em;
+  color: var(--white); text-shadow: 0 2px 40px rgba(15,34,56,0.35);
 }
 .hero-title em { font-style: italic; font-weight: 300; }
 .hero-sub {
-  margin-top: 26px;
-  font-size: 0.82rem;
-  letter-spacing: 0.4em;
-  text-transform: uppercase;
-  color: rgba(255,255,255,0.82);
+  margin-top: 26px; font-size: 0.82rem; letter-spacing: 0.4em;
+  text-transform: uppercase; color: rgba(255,255,255,0.85);
 }
-.hero-actions {
-  margin-top: 48px;
-  display: flex;
-  gap: 18px;
-  justify-content: center;
-  flex-wrap: wrap;
-}
+.hero-actions { margin-top: 48px; display: flex; gap: 18px; justify-content: center; flex-wrap: wrap; }
 .btn-ghost {
-  display: inline-block;
-  font-size: 0.7rem;
-  letter-spacing: 0.28em;
-  text-transform: uppercase;
-  color: var(--white);
-  padding: 16px 40px;
-  border: 1px solid rgba(255,255,255,0.55);
-  transition: background 0.4s var(--ease), color 0.4s var(--ease), border-color 0.4s var(--ease);
+  position: relative; display: inline-block; overflow: hidden;
+  font-size: 0.7rem; letter-spacing: 0.28em; text-transform: uppercase;
+  color: var(--white); padding: 17px 42px; border: 1px solid rgba(255,255,255,0.55);
+  transition: color 0.45s var(--ease), border-color 0.45s var(--ease);
   will-change: transform;
 }
-.btn-ghost:hover { background: var(--white); color: var(--navy); border-color: var(--white); }
+.btn-ghost::before {
+  content: ""; position: absolute; inset: 0; background: var(--white);
+  transform: scaleY(0); transform-origin: bottom;
+  transition: transform 0.45s var(--ease); z-index: -1;
+}
+.btn-ghost:hover { color: var(--navy); border-color: var(--white); }
+.btn-ghost:hover::before { transform: scaleY(1); }
 
-/* --- entrée hero (fade-up séquentiel) --- */
-.hz { opacity: 0; transform: translateY(30px); animation: heroUp 1.1s var(--ease) forwards; }
-.hz.d1 { animation-delay: 0.15s; }
-.hz.d2 { animation-delay: 0.4s; }
-.hz.d3 { animation-delay: 0.62s; }
-.hz.d4 { animation-delay: 0.85s; }
+/* entrées hero pilotées par body.ready */
+.hz { opacity: 0; transform: translateY(26px); }
+body.ready .hz { animation: heroUp 1.15s var(--ease) forwards; animation-delay: var(--hd, 0s); }
 @keyframes heroUp { to { opacity: 1; transform: none; } }
 
-/* --- ligne d'eau SVG (or, très discrète) --- */
-.hero-waves { position: absolute; left: 0; right: 0; bottom: -1px; z-index: 2; line-height: 0; pointer-events: none; }
+/* ligne d'eau */
+.hero-waves { position: absolute; left: 0; right: 0; bottom: -1px; z-index: 3; line-height: 0; pointer-events: none; }
 .hero-waves svg { width: 200%; height: 120px; display: block; }
 .wave-1 { animation: flow 24s linear infinite; opacity: 0.16; }
 .wave-2 { animation: flow 16s linear infinite; opacity: 0.11; }
 .wave-3 { animation: flow 10s linear infinite; opacity: 0.08; }
 @keyframes flow { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 
-/* --- scroll cue --- */
 .scroll-cue {
   position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%);
-  z-index: 3; display: flex; flex-direction: column; align-items: center; gap: 12px;
+  z-index: 4; display: flex; flex-direction: column; align-items: center; gap: 12px;
   font-size: 0.58rem; letter-spacing: 0.3em; text-transform: uppercase; color: rgba(255,255,255,0.7);
 }
 .scroll-cue .track { width: 1px; height: 46px; background: rgba(255,255,255,0.28); position: relative; overflow: hidden; }
@@ -317,31 +298,46 @@ section { position: relative; }
 /* ===========================================================
    2 · INTRO
    =========================================================== */
-.intro { background: var(--sand); padding: 168px 0 150px; text-align: center; }
+.intro { background: var(--sand); padding: 170px 0 140px; text-align: center; }
 .intro .eyebrow { display: block; margin-bottom: 28px; }
 .intro-title {
-  font-family: var(--ff-display);
-  font-weight: 400;
-  font-size: clamp(2.4rem, 5.4vw, 4rem);
-  line-height: 1.1;
-  max-width: 960px; margin: 0 auto;
-  color: var(--navy);
+  font-family: var(--ff-display); font-weight: 400;
+  font-size: clamp(2rem, 5.2vw, 3.9rem); line-height: 1.12;
+  max-width: 960px; margin: 0 auto; color: var(--navy);
 }
 .intro-title em { font-style: italic; color: var(--gold); }
 .intro-lede { max-width: 620px; margin: 30px auto 0; color: var(--muted); font-size: 1.05rem; }
 
-.stats {
-  display: grid; grid-template-columns: repeat(3, 1fr);
-  gap: 24px; max-width: 900px; margin: 96px auto 0;
-}
+.stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; max-width: 900px; margin: 96px auto 0; }
 .stat { padding: 0 16px; }
 .stat-num {
-  font-family: var(--ff-display); font-weight: 400; font-size: clamp(3rem, 6vw, 4.4rem);
-  line-height: 1; color: var(--navy);
+  font-family: var(--ff-display); font-weight: 400;
+  font-size: clamp(3rem, 6vw, 4.4rem); line-height: 1; color: var(--navy);
+  font-variant-numeric: tabular-nums;
 }
 .stat-num .u { font-size: 0.5em; color: var(--gold); }
 .stat-label { margin-top: 16px; font-size: 0.7rem; letter-spacing: 0.26em; text-transform: uppercase; color: var(--muted); }
 .stat + .stat { border-left: 1px solid var(--line); }
+
+/* ===========================================================
+   MARQUEE — bandeau typographique défilant
+   =========================================================== */
+.marquee { overflow: hidden; padding: 64px 0; background: var(--white); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.marquee.on-cream { background: var(--cream); }
+.marquee-track { display: flex; align-items: center; width: max-content; animation: mq 46s linear infinite; will-change: transform; }
+.marquee.rev .marquee-track { animation-direction: reverse; }
+.marquee-track span {
+  font-family: var(--ff-display); font-style: italic; font-weight: 400;
+  font-size: clamp(3.4rem, 8vw, 6.2rem); line-height: 1.15; white-space: nowrap;
+  color: transparent; -webkit-text-stroke: 1px rgba(27, 58, 92, 0.30);
+  padding-right: 26px;
+}
+.marquee-track span b { font-weight: 400; -webkit-text-stroke: 0; color: var(--gold); font-style: italic; }
+.marquee-track .dot {
+  -webkit-text-stroke: 0; color: var(--gold); font-size: clamp(1.4rem, 2.6vw, 2rem);
+  padding: 0 38px 0 12px;
+}
+@keyframes mq { to { transform: translateX(-50%); } }
 
 /* ===========================================================
    3 · OFFRES
@@ -352,37 +348,47 @@ section { position: relative; }
   max-width: 1000px; margin: 0 auto; perspective: 1400px;
 }
 .offer-card {
-  position: relative;
-  background: var(--sand);
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-  padding: 60px 50px 54px;
+  position: relative; background: var(--sand);
+  border: 1px solid var(--line); border-radius: var(--radius);
+  padding: 60px 50px 54px; overflow: hidden;
   transform-style: preserve-3d;
   transition: transform 0.25s ease-out, box-shadow 0.5s var(--ease), border-color 0.5s var(--ease);
   box-shadow: var(--shadow-soft);
-  overflow: hidden;
 }
 .offer-card.featured { border-color: rgba(201,168,76,0.55); background: var(--white); }
-/* reflet doré qui suit le curseur (tilt 3D) */
+/* reflet doré qui suit le curseur */
 .offer-card::before {
   content: ""; position: absolute; inset: 0; pointer-events: none; opacity: 0;
   background: radial-gradient(340px circle at var(--mx, 50%) var(--my, 50%), rgba(201,168,76,0.14), transparent 60%);
   transition: opacity 0.4s var(--ease); z-index: 1;
 }
 .offer-card:hover::before { opacity: 1; }
+/* balayage lumineux au survol */
+.offer-card::after {
+  content: ""; position: absolute; top: 0; left: -85%; width: 55%; height: 100%;
+  background: linear-gradient(100deg, transparent, rgba(255,255,255,0.5), transparent);
+  transform: skewX(-18deg); z-index: 3; pointer-events: none;
+  transition: left 0.9s var(--ease);
+}
+.offer-card:hover::after { left: 135%; }
 .offer-card > * { position: relative; z-index: 2; }
 
 .offer-badge {
-  position: absolute; top: 26px; right: 26px; z-index: 3;
+  position: absolute; top: 26px; right: 26px; z-index: 4;
   font-size: 0.58rem; letter-spacing: 0.3em; text-transform: uppercase;
   color: var(--white); background: var(--gold); padding: 8px 15px;
-  transform: translateZ(50px);
+  animation: badgeGlow 3.2s ease-in-out infinite;
 }
-.offer-name { font-family: var(--ff-display); font-weight: 500; font-size: 2.1rem; color: var(--navy); transform: translateZ(30px); }
+@keyframes badgeGlow {
+  0%,100% { box-shadow: 0 0 0 rgba(201,168,76,0); }
+  50%     { box-shadow: 0 0 22px rgba(201,168,76,0.55); }
+}
+.offer-name { font-family: var(--ff-display); font-weight: 500; font-size: 2.1rem; color: var(--navy); }
 .offer-dur { margin-top: 6px; font-size: 0.68rem; letter-spacing: 0.28em; text-transform: uppercase; color: var(--gold); }
 .offer-price {
-  font-family: var(--ff-display); font-weight: 400; font-size: clamp(3.4rem, 7vw, 4.4rem);
-  line-height: 1; color: var(--navy); margin: 32px 0 8px; transform: translateZ(40px);
+  font-family: var(--ff-display); font-weight: 400;
+  font-size: clamp(3.4rem, 7vw, 4.4rem); line-height: 1; color: var(--navy);
+  margin: 32px 0 8px; font-variant-numeric: tabular-nums;
 }
 .offer-price .c { font-size: 0.5em; color: var(--gold); }
 .offer-note { font-size: 0.74rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); }
@@ -401,35 +407,50 @@ section { position: relative; }
 .incl li.hl { color: var(--navy); font-weight: 400; }
 
 /* ===========================================================
-   4 · GALERIE
+   4 · GALERIE — photos vivantes
    =========================================================== */
 .gallery { background: var(--cream); padding: 150px 0 160px; }
 .masonry { column-count: 3; column-gap: 22px; max-width: 1080px; margin: 0 auto; }
 .photo-item {
-  position: relative; break-inside: avoid; margin-bottom: 22px; border-radius: var(--radius);
-  overflow: hidden; cursor: pointer; box-shadow: var(--shadow-soft);
-  transform-style: preserve-3d; transition: transform 0.25s ease-out, box-shadow 0.5s var(--ease);
+  position: relative; break-inside: avoid; margin-bottom: 22px;
+  border-radius: var(--radius); overflow: hidden; cursor: pointer;
+  box-shadow: var(--shadow-soft);
+  transform-style: preserve-3d;
+  transition: transform 0.25s ease-out, box-shadow 0.5s var(--ease);
 }
-/* Remplacer par vos photos : background-image de chaque .photo-placeholder */
-.photo-placeholder {
-  position: relative;
+.photo-frame { position: relative; overflow: hidden; }
+/* Le média dépasse de son cadre : il glisse au scroll (parallaxe) */
+.photo-media {
+  position: absolute; inset: -14% 0;
   background-color: #d9d2c6;
   background-image: linear-gradient(135deg, #e7e1d6 0%, #d3ccbe 100%);
   background-size: cover; background-position: center;
-  transition: transform 0.6s var(--ease);
+  will-change: transform; transition: scale 0.7s var(--ease);
+  scale: 1;
 }
-.photo-item:hover .photo-placeholder { transform: scale(1.04); }
-.photo-placeholder::after {
-  content: attr(data-name); position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
-  font-size: 0.64rem; letter-spacing: 0.22em; text-transform: uppercase; color: rgba(27,58,92,0.28); pointer-events: none;
+.photo-item:hover .photo-media { scale: 1.06; }
+.photo-media::after {
+  content: attr(data-name); position: absolute; inset: 14% 0;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--ff-body); font-size: 0.64rem; letter-spacing: 0.22em;
+  text-transform: uppercase; color: rgba(27,58,92,0.28); pointer-events: none;
 }
-.r-landscape { aspect-ratio: 4 / 3; }
-.r-portrait  { aspect-ratio: 3 / 4; }
-.r-square    { aspect-ratio: 1 / 1; }
-.r-tall      { aspect-ratio: 2 / 3; }
+/* dévoilement au scroll : rideau qui se lève */
+.photo-item .photo-frame::before {
+  content: ""; position: absolute; inset: 0; z-index: 3; background: var(--cream);
+  transform: scaleY(1); transform-origin: top;
+  transition: transform 1.1s var(--ease); transition-delay: var(--d, 0s);
+}
+.photo-item.in .photo-frame::before { transform: scaleY(0); }
+
+.r-landscape .photo-frame { aspect-ratio: 4 / 3; }
+.r-portrait  .photo-frame { aspect-ratio: 3 / 4; }
+.r-square    .photo-frame { aspect-ratio: 1 / 1; }
+.r-tall      .photo-frame { aspect-ratio: 2 / 3; }
 
 .photo-overlay {
-  position: absolute; inset: 0; z-index: 2; display: flex; align-items: flex-end; padding: 24px 26px;
+  position: absolute; inset: 0; z-index: 2; display: flex; align-items: flex-end;
+  padding: 24px 26px;
   background: linear-gradient(180deg, rgba(15,34,56,0) 45%, rgba(15,34,56,0.72) 100%);
   opacity: 0; transition: opacity 0.5s var(--ease);
 }
@@ -440,6 +461,30 @@ section { position: relative; }
 }
 .photo-item:hover .photo-caption { transform: none; }
 
+/* ---------- LIGHTBOX ---------- */
+.lightbox {
+  position: fixed; inset: 0; z-index: 300; background: rgba(15,34,56,0.93);
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 22px;
+  opacity: 0; visibility: hidden; transition: opacity 0.5s var(--ease), visibility 0s 0.5s;
+  padding: 5vh 5vw;
+}
+.lightbox.open { opacity: 1; visibility: visible; transition: opacity 0.5s var(--ease); }
+.lightbox-media {
+  width: min(1000px, 90vw); height: min(72vh, 700px);
+  background-size: cover; background-position: center;
+  background-color: #d9d2c6; border-radius: var(--radius);
+  box-shadow: 0 60px 120px -40px rgba(0,0,0,0.6);
+  transform: scale(0.94); transition: transform 0.6s var(--ease);
+}
+.lightbox.open .lightbox-media { transform: scale(1); }
+.lightbox-cap { font-family: var(--ff-display); font-style: italic; font-size: 1.5rem; color: var(--cream); }
+.lightbox-x {
+  position: absolute; top: 28px; right: 36px; background: none; border: none;
+  font-family: var(--ff-body); font-size: 0.66rem; letter-spacing: 0.3em;
+  text-transform: uppercase; color: rgba(255,255,255,0.75); cursor: pointer; padding: 10px;
+}
+.lightbox-x:hover { color: var(--gold); }
+
 /* ===========================================================
    5 · EXPÉRIENCE
    =========================================================== */
@@ -448,52 +493,61 @@ section { position: relative; }
 .exp-col { text-align: center; padding: 0 6px; }
 .exp-icon { width: 46px; height: 46px; margin: 0 auto 28px; color: var(--gold); }
 .exp-icon svg { width: 100%; height: 100%; display: block; }
+/* les icônes se dessinent au scroll */
+.exp-icon path {
+  stroke-dasharray: 180; stroke-dashoffset: 180;
+  transition: stroke-dashoffset 1.8s var(--ease); transition-delay: calc(var(--d, 0s) + 0.3s);
+}
+.exp-col.in .exp-icon path { stroke-dashoffset: 0; }
 .exp-col h3 { font-family: var(--ff-display); font-weight: 500; font-size: 1.65rem; color: var(--navy); margin-bottom: 12px; }
 .exp-col p { font-size: 0.97rem; color: var(--muted); max-width: 290px; margin: 0 auto; }
-.exp-col .rule { margin-top: 20px; width: 34px; }
+.exp-col .rule { margin-top: 22px; width: 34px; }
 
 /* ===========================================================
    6 · PARTENAIRE
    =========================================================== */
-.partner { background: var(--white); padding: 150px 0 160px; text-align: center; }
+.partner { background: var(--white); padding: 150px 0 160px; text-align: center; overflow: hidden; }
 .partner .eyebrow { display: block; margin-bottom: 28px; }
 .partner-name {
-  font-family: var(--ff-display); font-weight: 400; font-size: clamp(3rem, 7vw, 5rem);
-  line-height: 1; color: var(--navy); letter-spacing: 0.01em;
+  font-family: var(--ff-display); font-weight: 400;
+  font-size: clamp(3rem, 7vw, 5rem); line-height: 1.05; color: var(--navy);
 }
 .partner-name em { font-style: italic; color: var(--gold); }
 .partner-text { max-width: 620px; margin: 32px auto 0; font-size: 1.08rem; line-height: 1.9; color: var(--muted); }
 .partner-sign { margin-top: 38px; font-family: var(--ff-display); font-style: italic; font-size: 1.5rem; color: var(--gold); }
 
 /* ===========================================================
-   7 · CTA (unique moment sombre — clôture premium)
+   7 · CTA — clôture sombre, particules d'or
    =========================================================== */
 .cta {
   position: relative; background: var(--navy-deep); color: var(--white);
-  padding: 170px 0 170px; text-align: center; overflow: hidden;
+  padding: 175px 0; text-align: center; overflow: hidden;
 }
+.cta-canvas { position: absolute; inset: 0; z-index: 1; pointer-events: none; }
 .cta-glow {
-  position: absolute; width: 640px; height: 640px; border-radius: 50%;
-  background: radial-gradient(circle, rgba(201,168,76,0.16), transparent 62%);
-  left: 50%; top: 30%; transform: translate(-50%, -50%); pointer-events: none;
-  animation: float 10s ease-in-out infinite alternate;
+  position: absolute; width: 680px; height: 680px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(201,168,76,0.15), transparent 62%);
+  left: 50%; top: 32%; transform: translate(-50%,-50%); pointer-events: none;
+  animation: float 11s ease-in-out infinite alternate;
 }
-@keyframes float { from { transform: translate(-50%, -50%); } to { transform: translate(-46%, -56%); } }
+@keyframes float { from { transform: translate(-50%,-50%); } to { transform: translate(-46%,-56%); } }
 .cta .wrap { position: relative; z-index: 2; }
 .cta .eyebrow { display: block; margin-bottom: 28px; }
 .cta h2 {
-  font-family: var(--ff-display); font-weight: 400; font-size: clamp(2.4rem, 6vw, 4.2rem);
-  line-height: 1.1; max-width: 820px; margin: 0 auto; color: var(--white);
+  font-family: var(--ff-display); font-weight: 400;
+  font-size: clamp(2.3rem, 6vw, 4.2rem); line-height: 1.12;
+  max-width: 820px; margin: 0 auto; color: var(--white);
 }
 .cta h2 em { font-style: italic; color: var(--gold); }
 .cta-contacts { margin-top: 56px; display: flex; flex-direction: column; align-items: center; gap: 22px; }
 .cta-email {
-  font-family: var(--ff-display); font-size: clamp(1.8rem, 4vw, 2.6rem); color: var(--gold);
-  position: relative; will-change: transform;
+  font-family: var(--ff-display); font-size: clamp(1.7rem, 4vw, 2.6rem); color: var(--gold);
+  position: relative; will-change: transform; display: inline-block;
 }
 .cta-email::after {
-  content: ""; position: absolute; left: 0; bottom: -6px; width: 100%; height: 1px; background: rgba(201,168,76,0.4);
-  transform: scaleX(0); transform-origin: left; transition: transform 0.5s var(--ease);
+  content: ""; position: absolute; left: 0; bottom: -6px; width: 100%; height: 1px;
+  background: rgba(201,168,76,0.4); transform: scaleX(0); transform-origin: left;
+  transition: transform 0.5s var(--ease);
 }
 .cta-email:hover::after { transform: scaleX(1); }
 .cta-insta { font-size: 0.78rem; letter-spacing: 0.24em; text-transform: uppercase; color: rgba(255,255,255,0.6); transition: color 0.3s var(--ease); }
@@ -503,9 +557,20 @@ section { position: relative; }
 /* ===========================================================
    8 · FOOTER
    =========================================================== */
-.footer { background: var(--navy-deep); color: rgba(255,255,255,0.55); border-top: 1px solid var(--line-light); padding: 46px 0; text-align: center; }
+.footer {
+  background: var(--navy-deep); color: rgba(255,255,255,0.55);
+  border-top: 1px solid var(--line-light); padding: 46px 0; text-align: center;
+  display: flex; flex-direction: column; gap: 16px; align-items: center;
+}
 .footer p { font-size: 0.72rem; letter-spacing: 0.3em; text-transform: uppercase; }
 .footer .sep { color: var(--gold); margin: 0 10px; }
+.to-top {
+  background: none; border: none; cursor: pointer;
+  font-family: var(--ff-body); font-size: 0.6rem; letter-spacing: 0.3em;
+  text-transform: uppercase; color: rgba(255,255,255,0.4); padding: 6px;
+  transition: color 0.3s var(--ease);
+}
+.to-top:hover { color: var(--gold); }
 
 /* ===========================================================
    RESPONSIVE
@@ -523,6 +588,8 @@ section { position: relative; }
   .stats { grid-template-columns: 1fr; gap: 48px; margin-top: 66px; }
   .stat + .stat { border-left: none; border-top: 1px solid var(--line); padding-top: 48px; }
 
+  .marquee { padding: 44px 0; }
+
   .offers { padding: 100px 0 106px; }
   .offer-grid { grid-template-columns: 1fr; gap: 28px; max-width: 460px; perspective: none; }
   .offer-card { padding: 46px 32px 44px; }
@@ -534,28 +601,45 @@ section { position: relative; }
   .exp-grid { grid-template-columns: 1fr; gap: 60px; margin-top: 60px; }
 
   .partner { padding: 100px 0 106px; }
-  .cta { padding: 120px 0 120px; }
-
+  .cta { padding: 120px 0; }
   .head { margin-bottom: 54px; }
   .footer p { letter-spacing: 0.18em; font-size: 0.64rem; }
+  .lightbox-media { height: 52vh; }
 }
 
 /* ===========================================================
-   REDUCED MOTION
+   REDUCED MOTION — tout se désactive proprement
    =========================================================== */
 @media (prefers-reduced-motion: reduce) {
   * { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important;
       transition-duration: 0.001ms !important; scroll-behavior: auto !important; }
-  .hz { opacity: 1; transform: none; animation: none; }
-  .reveal { opacity: 1; transform: none; }
-  .hero-bg-img, .wave-1, .wave-2, .wave-3, .cta-glow { animation: none; }
+  .preloader { display: none; }
+  .grain { display: none; }
+  .hz, .reveal { opacity: 1; transform: none; animation: none; }
+  .ln { transform: none; }
+  .rule { transform: scaleX(1); }
+  .photo-item .photo-frame::before { display: none; }
+  .exp-icon path { stroke-dasharray: none; stroke-dashoffset: 0; }
+  .hero-bg-img, .wave-1, .wave-2, .wave-3, .cta-glow, .marquee-track, .offer-badge { animation: none; }
   .scroll-cue .track::after { animation: none; top: 0; }
 }
 </style>
 </head>
 <body>
 
+<!-- PRELOADER -->
+<div class="preloader" aria-hidden="true">
+  <span class="pre-mark">Harmonie Yacht</span>
+  <span class="pre-line"></span>
+  <span class="pre-sub">Méditerranée</span>
+</div>
+
+<div class="grain" aria-hidden="true"></div>
 <div class="progress" id="progress"></div>
+
+<!-- Curseur personnalisé -->
+<div class="cursor-ring" id="cursorRing"><span class="cursor-label">Voir</span></div>
+<div class="cursor-dot" id="cursorDot"></div>
 
 <!-- TOP BAR -->
 <div class="topbar" id="topbar">
@@ -570,17 +654,20 @@ section { position: relative; }
   <!-- Remplacer par votre photo : hero-bg.jpg (voir .hero-bg-img dans le CSS) -->
   <div class="hero-bg" id="heroBg"><div class="hero-bg-img"></div></div>
   <div class="hero-veil"></div>
+  <canvas class="hero-canvas" id="heroCanvas"></canvas>
 
   <div class="hero-content">
-    <span class="eyebrow hz d1">Carnon-Port · Méditerranée</span>
-    <h1 class="hero-title hz d2">Une expérience<br /><em>unique</em> en mer</h1>
-    <p class="hero-sub hz d3">Offres entreprises · Yacht privatisé</p>
-    <div class="hero-actions hz d4">
+    <span class="eyebrow hz" style="--hd:.15s">Carnon-Port · Méditerranée</span>
+    <h1 class="hero-title">
+      <span class="lm"><span class="ln" style="--dd:.30s">Une expérience</span></span>
+      <span class="lm"><span class="ln" style="--dd:.45s"><em>unique</em> en mer</span></span>
+    </h1>
+    <p class="hero-sub hz" style="--hd:.75s">Offres entreprises · Yacht privatisé</p>
+    <div class="hero-actions hz" style="--hd:.95s">
       <a class="btn-ghost" id="heroBtn" href="#offres">Découvrir les offres</a>
     </div>
   </div>
 
-  <!-- Ligne d'eau animée : 3 vagues or, très discrètes -->
   <div class="hero-waves" aria-hidden="true">
     <svg class="wave-1" viewBox="0 0 1440 120" preserveAspectRatio="none"><path fill="#C9A84C" d="M0,50 C240,100 480,4 720,50 C960,96 1200,4 1440,50 L1440,120 L0,120 Z"/></svg>
   </div>
@@ -600,20 +687,49 @@ section { position: relative; }
 <section class="intro">
   <div class="wrap">
     <span class="eyebrow reveal">L'expérience Harmonie</span>
-    <h2 class="intro-title reveal" style="--d:.08s">Offrez à vos équipes une expérience <em>exclusive</em> en Méditerranée</h2>
-    <p class="intro-lede reveal" style="--d:.16s">
+    <h2 class="intro-title reveal" style="--d:.05s">
+      <span class="lm"><span class="ln" style="--dd:.1s">Offrez à vos équipes</span></span>
+      <span class="lm"><span class="ln" style="--dd:.22s">une expérience <em>exclusive</em></span></span>
+      <span class="lm"><span class="ln" style="--dd:.34s">en Méditerranée</span></span>
+    </h2>
+    <p class="intro-lede reveal" style="--d:.3s">
       Séminaires, incentives, réceptions clients ou moments de cohésion :
       un yacht entièrement privatisé, à quelques minutes du Port de Carnon,
       pour transformer vos événements d'entreprise en souvenirs d'exception.
     </p>
 
     <div class="stats">
-      <div class="stat reveal" style="--d:.10s"><div class="stat-num">10</div><div class="stat-label">Passagers</div></div>
-      <div class="stat reveal" style="--d:.20s"><div class="stat-num">Atlantis&nbsp;<span class="u">42</span></div><div class="stat-label">Yacht</div></div>
-      <div class="stat reveal" style="--d:.30s"><div class="stat-num">100<span class="u">%</span></div><div class="stat-label">Privatisé</div></div>
+      <div class="stat reveal" style="--d:.10s">
+        <div class="stat-num"><span data-count="10">0</span></div>
+        <div class="stat-label">Passagers</div>
+      </div>
+      <div class="stat reveal" style="--d:.20s">
+        <div class="stat-num">Atlantis&nbsp;<span class="u">42</span></div>
+        <div class="stat-label">Yacht</div>
+      </div>
+      <div class="stat reveal" style="--d:.30s">
+        <div class="stat-num"><span data-count="100">0</span><span class="u">%</span></div>
+        <div class="stat-label">Privatisé</div>
+      </div>
     </div>
   </div>
 </section>
+
+<!-- MARQUEE 1 -->
+<div class="marquee" aria-hidden="true">
+  <div class="marquee-track">
+    <span>Méditerranée</span><span class="dot">◆</span>
+    <span>Yacht <b>privatisé</b></span><span class="dot">◆</span>
+    <span>E-Foil électrique</span><span class="dot">◆</span>
+    <span>Champagne <b>Perla</b></span><span class="dot">◆</span>
+    <span>Carnon-Port</span><span class="dot">◆</span>
+    <span>Méditerranée</span><span class="dot">◆</span>
+    <span>Yacht <b>privatisé</b></span><span class="dot">◆</span>
+    <span>E-Foil électrique</span><span class="dot">◆</span>
+    <span>Champagne <b>Perla</b></span><span class="dot">◆</span>
+    <span>Carnon-Port</span><span class="dot">◆</span>
+  </div>
+</div>
 
 <!-- ============================================================
      3 · OFFRES
@@ -624,6 +740,7 @@ section { position: relative; }
       <span class="eyebrow">Nos formules</span>
       <h2>Deux escales, une même <em>exigence</em></h2>
       <p>Des prestations pensées pour l'entreprise — capitaine et carburant inclus.</p>
+      <div class="rule"></div>
     </div>
 
     <div class="offer-grid">
@@ -632,7 +749,7 @@ section { position: relative; }
       <article class="offer-card tilt reveal" style="--d:.05s">
         <h3 class="offer-name">Escapade en Mer</h3>
         <div class="offer-dur">Sortie · 2 heures</div>
-        <div class="offer-price"><span class="c">€</span>580</div>
+        <div class="offer-price"><span class="c">€</span><span data-count="580">0</span></div>
         <div class="offer-note">Forfait privatisé — jusqu'à 10 passagers</div>
         <div class="offer-sep"></div>
         <ul class="incl">
@@ -650,7 +767,7 @@ section { position: relative; }
         <span class="offer-badge">Exclusif</span>
         <h3 class="offer-name">Grand Large Prestige</h3>
         <div class="offer-dur">Sortie · 4 heures</div>
-        <div class="offer-price"><span class="c">€</span>1&nbsp;200</div>
+        <div class="offer-price"><span class="c">€</span><span data-count="1200" data-format="fr">0</span></div>
         <div class="offer-note">Forfait privatisé — jusqu'à 10 passagers</div>
         <div class="offer-sep"></div>
         <ul class="incl">
@@ -676,37 +793,38 @@ section { position: relative; }
     <div class="head reveal">
       <span class="eyebrow">Galerie</span>
       <h2>À bord de l'<em>Atlantis 42</em></h2>
+      <div class="rule"></div>
     </div>
 
     <div class="masonry">
       <!-- Remplacer par votre photo : photo-1.jpg -->
-      <figure class="photo-item tilt reveal" style="--d:.04s">
-        <div class="photo-placeholder r-landscape" data-name="photo-1.jpg"></div>
+      <figure class="photo-item tilt r-landscape" style="--d:.05s">
+        <div class="photo-frame"><div class="photo-media plx" data-name="photo-1.jpg"></div></div>
         <div class="photo-overlay"><figcaption class="photo-caption">Le yacht au mouillage</figcaption></div>
       </figure>
       <!-- Remplacer par votre photo : photo-2.jpg -->
-      <figure class="photo-item tilt reveal" style="--d:.10s">
-        <div class="photo-placeholder r-portrait" data-name="photo-2.jpg"></div>
+      <figure class="photo-item tilt r-portrait" style="--d:.12s">
+        <div class="photo-frame"><div class="photo-media plx" data-name="photo-2.jpg"></div></div>
         <div class="photo-overlay"><figcaption class="photo-caption">E-Foil électrique</figcaption></div>
       </figure>
       <!-- Remplacer par votre photo : photo-3.jpg -->
-      <figure class="photo-item tilt reveal" style="--d:.16s">
-        <div class="photo-placeholder r-square" data-name="photo-3.jpg"></div>
+      <figure class="photo-item tilt r-square" style="--d:.19s">
+        <div class="photo-frame"><div class="photo-media plx" data-name="photo-3.jpg"></div></div>
         <div class="photo-overlay"><figcaption class="photo-caption">Apéritif à bord</figcaption></div>
       </figure>
       <!-- Remplacer par votre photo : photo-4.jpg -->
-      <figure class="photo-item tilt reveal" style="--d:.04s">
-        <div class="photo-placeholder r-portrait" data-name="photo-4.jpg"></div>
+      <figure class="photo-item tilt r-portrait" style="--d:.05s">
+        <div class="photo-frame"><div class="photo-media plx" data-name="photo-4.jpg"></div></div>
         <div class="photo-overlay"><figcaption class="photo-caption">Plateforme de bain</figcaption></div>
       </figure>
       <!-- Remplacer par votre photo : photo-5.jpg -->
-      <figure class="photo-item tilt reveal" style="--d:.10s">
-        <div class="photo-placeholder r-landscape" data-name="photo-5.jpg"></div>
+      <figure class="photo-item tilt r-landscape" style="--d:.12s">
+        <div class="photo-frame"><div class="photo-media plx" data-name="photo-5.jpg"></div></div>
         <div class="photo-overlay"><figcaption class="photo-caption">Coucher de soleil en mer</figcaption></div>
       </figure>
       <!-- Remplacer par votre photo : photo-6.jpg -->
-      <figure class="photo-item tilt reveal" style="--d:.16s">
-        <div class="photo-placeholder r-tall" data-name="photo-6.jpg"></div>
+      <figure class="photo-item tilt r-tall" style="--d:.19s">
+        <div class="photo-frame"><div class="photo-media plx" data-name="photo-6.jpg"></div></div>
         <div class="photo-overlay"><figcaption class="photo-caption">Champagne Maison Perla</figcaption></div>
       </figure>
     </div>
@@ -721,43 +839,41 @@ section { position: relative; }
     <div class="head reveal">
       <span class="eyebrow">Ce qui nous distingue</span>
       <h2>Une signature en trois <em>temps</em></h2>
+      <div class="rule"></div>
     </div>
 
     <div class="exp-grid">
       <div class="exp-col reveal" style="--d:.05s">
         <div class="exp-icon">
-          <!-- Exclusivité — losange fin -->
           <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
             <path d="M24 5 L43 24 L24 43 L5 24 Z"/><path d="M15 24 L24 15 L33 24 L24 33 Z"/>
           </svg>
         </div>
         <h3>Exclusivité totale</h3>
         <p>Le yacht rien que pour vous et vos invités. Aucun partage, aucun compromis — une privatisation à 100 %.</p>
-        <div class="rule" style="margin-left:auto;margin-right:auto"></div>
+        <div class="rule"></div>
       </div>
 
       <div class="exp-col reveal" style="--d:.15s">
         <div class="exp-icon">
-          <!-- E-Foil — éclair + vague -->
           <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
             <path d="M27 5 L15 26 h8 l-3 17 15-24 h-8 z"/><path d="M5 42c4 0 4-3 8-3s4 3 8 3 4-3 8-3 4 3 9 3"/>
           </svg>
         </div>
         <h3>E-Foil électrique</h3>
         <p>La sensation de voler au-dessus de l'eau. Une expérience silencieuse et grisante, réservée au Grand Large Prestige.</p>
-        <div class="rule" style="margin-left:auto;margin-right:auto"></div>
+        <div class="rule"></div>
       </div>
 
       <div class="exp-col reveal" style="--d:.25s">
         <div class="exp-icon">
-          <!-- Champagne — coupe fine -->
           <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
             <path d="M15 8h18l-2.5 13a6.5 6.5 0 0 1-13 0z"/><path d="M24 27v12M17 42h14"/><path d="M37 9v3M40 14v2M34 14v2"/>
           </svg>
         </div>
         <h3>Champagne Maison Perla</h3>
         <p>Une cuvée d'exception servie à bord, fruit de notre partenariat avec la Maison Perla. L'élégance jusque dans le verre.</p>
-        <div class="rule" style="margin-left:auto;margin-right:auto"></div>
+        <div class="rule"></div>
       </div>
     </div>
   </div>
@@ -769,26 +885,43 @@ section { position: relative; }
 <section class="partner">
   <div class="wrap">
     <span class="eyebrow reveal">Notre partenaire champagne</span>
-    <h2 class="partner-name reveal" style="--d:.08s">Maison <em>Perla</em></h2>
-    <p class="partner-text reveal" style="--d:.16s">
+    <h2 class="partner-name reveal" style="--d:.05s">
+      <span class="lm"><span class="ln" style="--dd:.1s">Maison <em>Perla</em></span></span>
+    </h2>
+    <p class="partner-text reveal" style="--d:.2s">
       À bord d'Harmonie Yacht, chaque instant se célèbre avec une cuvée signée Maison Perla.
       Un champagne choisi pour sa finesse et sa fraîcheur maritime, qui accompagne vos moments
       d'affaires comme vos réussites collectives. Une rencontre entre deux maisons attachées
       au même art de recevoir.
     </p>
-    <p class="partner-sign reveal" style="--d:.24s">« Le luxe est dans le détail. »</p>
+    <p class="partner-sign reveal" style="--d:.3s">« Le luxe est dans le détail. »</p>
   </div>
 </section>
+
+<!-- MARQUEE 2 (sens inverse) -->
+<div class="marquee on-cream rev" aria-hidden="true">
+  <div class="marquee-track">
+    <span>Harmonie <b>Yacht</b></span><span class="dot">◆</span>
+    <span>Offres entreprises</span><span class="dot">◆</span>
+    <span>Événements <b>corporate</b></span><span class="dot">◆</span>
+    <span>Séminaires en mer</span><span class="dot">◆</span>
+    <span>Harmonie <b>Yacht</b></span><span class="dot">◆</span>
+    <span>Offres entreprises</span><span class="dot">◆</span>
+    <span>Événements <b>corporate</b></span><span class="dot">◆</span>
+    <span>Séminaires en mer</span><span class="dot">◆</span>
+  </div>
+</div>
 
 <!-- ============================================================
      7 · CTA
      ============================================================ -->
 <section class="cta" id="contact">
+  <canvas class="cta-canvas" id="ctaCanvas"></canvas>
   <div class="cta-glow" aria-hidden="true"></div>
   <div class="wrap">
     <span class="eyebrow reveal">Réservation entreprises</span>
     <h2 class="reveal" style="--d:.08s">Votre prochaine expérience en mer <em>commence ici</em></h2>
-    <div class="cta-contacts reveal" style="--d:.16s">
+    <div class="cta-contacts reveal" style="--d:.18s">
       <a class="cta-email" id="ctaEmail" href="mailto:harmonieyacht@gmail.com">harmonieyacht@gmail.com</a>
       <a class="cta-insta" href="https://instagram.com/harmonieyacht" target="_blank" rel="noopener">Instagram · @harmonieyacht</a>
       <div class="cta-loc">Port de Carnon · Montpellier</div>
@@ -798,80 +931,243 @@ section { position: relative; }
 
 <!-- FOOTER -->
 <footer class="footer">
-  <div class="wrap"><p>Harmonie Yacht <span class="sep">·</span> Carnon-Port <span class="sep">·</span> Méditerranée</p></div>
+  <p>Harmonie Yacht <span class="sep">·</span> Carnon-Port <span class="sep">·</span> Méditerranée</p>
+  <button class="to-top" id="toTop">Retour en haut</button>
 </footer>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Photo agrandie">
+  <button class="lightbox-x" id="lightboxX">Fermer</button>
+  <div class="lightbox-media" id="lightboxMedia"></div>
+  <div class="lightbox-cap" id="lightboxCap"></div>
+</div>
 
 <script>
 (function () {
-  var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  var canHover = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+  "use strict";
+  var reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var fine = matchMedia("(hover: hover) and (pointer: fine)").matches;
+  var DPR = Math.min(2, window.devicePixelRatio || 1);
 
-  /* ---------- Scroll reveal ---------- */
-  var reveals = document.querySelectorAll(".reveal");
+  /* ============ PRELOADER ============ */
+  function ready() { document.body.classList.add("ready"); }
+  if (reduce) { ready(); }
+  else {
+    var t0 = performance.now();
+    if (document.readyState === "complete") { setTimeout(ready, 900); }
+    else {
+      window.addEventListener("load", function () {
+        var dt = performance.now() - t0;
+        setTimeout(ready, Math.max(150, 1150 - dt));
+      });
+    }
+    setTimeout(ready, 3200); /* filet de sécurité */
+  }
+
+  /* ============ COMPTEURS ============ */
+  function countUp(el) {
+    var target = parseInt(el.getAttribute("data-count"), 10);
+    var fmt = el.getAttribute("data-format") === "fr";
+    function render(v) {
+      var s = String(v);
+      if (fmt && v >= 1000) s = s.slice(0, -3) + " " + s.slice(-3);
+      el.textContent = s;
+    }
+    if (reduce) { render(target); return; }
+    var dur = 1500, start = null;
+    function step(t) {
+      if (!start) start = t;
+      var p = Math.min(1, (t - start) / dur);
+      p = 1 - Math.pow(1 - p, 3);
+      render(Math.round(target * p));
+      if (p < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+
+  /* ============ SCROLL REVEAL ============ */
+  var reveals = document.querySelectorAll(".reveal, .photo-item, .exp-col");
+  function markIn(el) {
+    el.classList.add("in");
+    el.querySelectorAll("[data-count]").forEach(countUp);
+  }
   if (reduce || !("IntersectionObserver" in window)) {
-    reveals.forEach(function (el) { el.classList.add("in"); });
+    reveals.forEach(markIn);
   } else {
     var io = new IntersectionObserver(function (entries) {
       entries.forEach(function (e) {
-        if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); }
+        if (e.isIntersecting) { markIn(e.target); io.unobserve(e.target); }
       });
     }, { threshold: 0.14, rootMargin: "0px 0px -8% 0px" });
     reveals.forEach(function (el) { io.observe(el); });
   }
 
-  /* ---------- Scroll progress + topbar ---------- */
+  /* ============ BOUCLE rAF : progression, parallaxe, curseur ============ */
+  var heroBg = document.getElementById("heroBg");
   var progress = document.getElementById("progress");
   var topbar = document.getElementById("topbar");
-  var heroBg = document.getElementById("heroBg");
-  var vh = window.innerHeight;
+  var plxEls = Array.prototype.slice.call(document.querySelectorAll(".plx"));
+  var vh = innerHeight;
+  addEventListener("resize", function () { vh = innerHeight; }, { passive: true });
 
-  function onScroll() {
-    var y = window.scrollY || window.pageYOffset;
+  var mx = -100, my = -100, rx = -100, ry = -100, dx = -100, dy = -100;
+  var ring = document.getElementById("cursorRing");
+  var dot = document.getElementById("cursorDot");
+
+  if (fine && !reduce) {
+    document.documentElement.classList.add("cur");
+    addEventListener("mousemove", function (e) {
+      mx = e.clientX; my = e.clientY;
+      ring.style.opacity = "1"; dot.style.opacity = "1";
+    }, { passive: true });
+    document.addEventListener("mouseleave", function () {
+      ring.style.opacity = "0"; dot.style.opacity = "0";
+    });
+    document.addEventListener("mouseover", function (e) {
+      var photo = e.target.closest(".photo-item");
+      var act = e.target.closest("a, button, .tilt");
+      ring.classList.toggle("view", !!photo);
+      ring.classList.toggle("grow", !photo && !!act);
+    });
+  }
+
+  function loop() {
+    var y = scrollY || pageYOffset;
     var h = document.documentElement.scrollHeight - vh;
     progress.style.width = (h > 0 ? (y / h) * 100 : 0) + "%";
     if (y > 40) topbar.classList.add("scrolled"); else topbar.classList.remove("scrolled");
-    /* Parallaxe hero */
-    if (!reduce && heroBg && y < vh) heroBg.style.transform = "translateY(" + (y * 0.4) + "px)";
+
+    if (!reduce) {
+      /* hero : parallaxe */
+      if (heroBg && y < vh) heroBg.style.transform = "translateY(" + y * 0.38 + "px)";
+      /* photos : glissement dans leur cadre */
+      for (var i = 0; i < plxEls.length; i++) {
+        var el = plxEls[i];
+        var r = el.parentElement.getBoundingClientRect();
+        if (r.bottom < -80 || r.top > vh + 80) continue;
+        var prog = (r.top + r.height / 2 - vh / 2) / (vh / 2 + r.height / 2); /* -1..1 */
+        el.style.translate = "0 " + (-prog * r.height * 0.10).toFixed(1) + "px";
+      }
+    }
+    if (fine && !reduce) {
+      rx += (mx - rx) * 0.16; ry += (my - ry) * 0.16;
+      dx += (mx - dx) * 0.5;  dy += (my - dy) * 0.5;
+      ring.style.left = rx + "px"; ring.style.top = ry + "px";
+      dot.style.left = dx + "px"; dot.style.top = dy + "px";
+    }
+    requestAnimationFrame(loop);
   }
-  window.addEventListener("scroll", onScroll, { passive: true });
-  window.addEventListener("resize", function () { vh = window.innerHeight; }, { passive: true });
-  onScroll();
+  requestAnimationFrame(loop);
 
-  if (reduce || !canHover) return; /* pas d'effets pointeur si tactile ou motion réduit */
+  /* ============ TILT 3D ============ */
+  if (fine && !reduce) {
+    document.querySelectorAll(".tilt").forEach(function (el) {
+      var strength = el.classList.contains("photo-item") ? 6 : 9;
+      el.addEventListener("mousemove", function (e) {
+        var r = el.getBoundingClientRect();
+        var px = (e.clientX - r.left) / r.width;
+        var py = (e.clientY - r.top) / r.height;
+        el.style.transform = "perspective(1100px) rotateX(" + (0.5 - py) * strength +
+          "deg) rotateY(" + (px - 0.5) * strength + "deg) translateY(-6px)";
+        el.style.boxShadow = "var(--shadow-lift)";
+        el.style.setProperty("--mx", px * 100 + "%");
+        el.style.setProperty("--my", py * 100 + "%");
+      });
+      el.addEventListener("mouseleave", function () {
+        el.style.transform = ""; el.style.boxShadow = "";
+      });
+    });
 
-  /* ---------- Tilt 3D (cartes + galerie) ---------- */
-  document.querySelectorAll(".tilt").forEach(function (el) {
-    var strength = el.classList.contains("photo-item") ? 6 : 9;
-    el.addEventListener("mousemove", function (e) {
-      var r = el.getBoundingClientRect();
-      var px = (e.clientX - r.left) / r.width;
-      var py = (e.clientY - r.top) / r.height;
-      var rx = (0.5 - py) * strength;
-      var ry = (px - 0.5) * strength;
-      el.style.transform = "perspective(1100px) rotateX(" + rx + "deg) rotateY(" + ry + "deg) translateY(-6px)";
-      el.style.boxShadow = "var(--shadow-lift)";
-      el.style.setProperty("--mx", (px * 100) + "%");
-      el.style.setProperty("--my", (py * 100) + "%");
-    });
-    el.addEventListener("mouseleave", function () {
-      el.style.transform = "";
-      el.style.boxShadow = "";
-    });
+    /* boutons magnétiques */
+    function magnetic(el, k) {
+      if (!el) return;
+      el.addEventListener("mousemove", function (e) {
+        var r = el.getBoundingClientRect();
+        el.style.transform = "translate(" + (e.clientX - r.left - r.width / 2) * k +
+          "px," + (e.clientY - r.top - r.height / 2) * k + "px)";
+      });
+      el.addEventListener("mouseleave", function () { el.style.transform = ""; });
+    }
+    magnetic(document.getElementById("heroBtn"), 0.28);
+    magnetic(document.getElementById("ctaEmail"), 0.15);
+  }
+
+  /* ============ PARTICULES D'OR (canvas) ============ */
+  function particles(canvas, count, alphaMax) {
+    if (reduce || !canvas) return;
+    var ctx = canvas.getContext("2d");
+    var W, H, ps = [], running = false, raf = null;
+    function resize() {
+      W = canvas.width = canvas.offsetWidth * DPR;
+      H = canvas.height = canvas.offsetHeight * DPR;
+    }
+    function make() {
+      ps = [];
+      for (var i = 0; i < count; i++) {
+        ps.push({
+          x: Math.random(), y: Math.random(),
+          r: (0.6 + Math.random() * 1.6) * DPR,
+          vy: (0.05 + Math.random() * 0.12) * DPR,
+          vx: (Math.random() - 0.5) * 0.06 * DPR,
+          ph: Math.random() * Math.PI * 2,
+          sp: 0.4 + Math.random() * 0.8
+        });
+      }
+    }
+    function tick(t) {
+      if (!running) return;
+      ctx.clearRect(0, 0, W, H);
+      for (var i = 0; i < ps.length; i++) {
+        var p = ps[i];
+        p.y -= p.vy / H * 16; p.x += p.vx / W * 16;
+        if (p.y < -0.02) { p.y = 1.02; p.x = Math.random(); }
+        var a = alphaMax * (0.35 + 0.65 * Math.abs(Math.sin(p.ph + t * 0.001 * p.sp)));
+        ctx.beginPath();
+        ctx.arc(p.x * W, p.y * H, p.r, 0, Math.PI * 2);
+        ctx.fillStyle = "rgba(216, 190, 121," + a.toFixed(3) + ")";
+        ctx.fill();
+      }
+      raf = requestAnimationFrame(tick);
+    }
+    resize(); make();
+    addEventListener("resize", resize, { passive: true });
+    new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting && !running) { running = true; raf = requestAnimationFrame(tick); }
+        else if (!e.isIntersecting && running) { running = false; cancelAnimationFrame(raf); }
+      });
+    }).observe(canvas);
+  }
+  particles(document.getElementById("heroCanvas"), innerWidth < 768 ? 26 : 55, 0.5);
+  particles(document.getElementById("ctaCanvas"), innerWidth < 768 ? 20 : 45, 0.6);
+
+  /* ============ LIGHTBOX ============ */
+  var lb = document.getElementById("lightbox");
+  var lbMedia = document.getElementById("lightboxMedia");
+  var lbCap = document.getElementById("lightboxCap");
+  function openLB(item) {
+    var media = item.querySelector(".photo-media");
+    var cap = item.querySelector(".photo-caption");
+    lbMedia.style.backgroundImage = getComputedStyle(media).backgroundImage;
+    lbCap.textContent = cap ? cap.textContent : "";
+    lb.classList.add("open");
+    document.body.style.overflow = "hidden";
+  }
+  function closeLB() {
+    lb.classList.remove("open");
+    document.body.style.overflow = "";
+  }
+  document.querySelectorAll(".photo-item").forEach(function (item) {
+    item.addEventListener("click", function () { openLB(item); });
   });
+  document.getElementById("lightboxX").addEventListener("click", closeLB);
+  lb.addEventListener("click", function (e) { if (e.target === lb) closeLB(); });
+  addEventListener("keydown", function (e) { if (e.key === "Escape") closeLB(); });
 
-  /* ---------- Boutons magnétiques ---------- */
-  function magnetic(el, k) {
-    if (!el) return;
-    el.addEventListener("mousemove", function (e) {
-      var r = el.getBoundingClientRect();
-      var x = (e.clientX - r.left - r.width / 2) * k;
-      var y = (e.clientY - r.top - r.height / 2) * k;
-      el.style.transform = "translate(" + x + "px," + y + "px)";
-    });
-    el.addEventListener("mouseleave", function () { el.style.transform = ""; });
-  }
-  magnetic(document.getElementById("heroBtn"), 0.28);
-  magnetic(document.getElementById("ctaEmail"), 0.15);
+  /* ============ RETOUR EN HAUT ============ */
+  document.getElementById("toTop").addEventListener("click", function () {
+    scrollTo({ top: 0, behavior: reduce ? "auto" : "smooth" });
+  });
 })();
 </script>
 
