@@ -16,15 +16,16 @@
 
      Fichier autonome. Seule dépendance externe : Google Fonts.
 
-     REMPLACER LES PHOTOS :
-       Chaque visuel est un bloc .photo-media / .hero-bg-img.
-       Renseigner la propriété CSS background-image
-       (voir les commentaires "Remplacer par votre photo").
+     PHOTOS :
+       hero-bg.jpg (hero) et photo-1.jpg à photo-5.jpg (galerie)
+       sont en place. Pour changer un visuel, remplacer simplement
+       le fichier correspondant (mêmes noms).
      ============================================================ -->
 
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+<link rel="preload" as="image" href="hero-bg.jpg" />
 
 <style>
 /* ===========================================================
@@ -930,40 +931,34 @@ body.ready .hz { animation: heroUp 1.15s var(--ease) forwards; animation-delay: 
 
     <div class="hgal-track" id="hgalTrack">
 
-      <!-- Remplacer par votre photo : photo-1.jpg -->
+      <!-- Photo : photo-1.jpg (remplacer le fichier pour changer le visuel) -->
       <article class="hpanel hp-landscape" style="--d:.05s">
-        <div class="hpanel-frame"><div class="photo-media" data-name="photo-1.jpg"></div></div>
-        <div class="hpanel-meta"><span class="hpanel-num">01</span><p class="hpanel-cap">Le yacht au mouillage</p></div>
+        <div class="hpanel-frame"><div class="photo-media" style="background-image:url('photo-1.jpg')"></div></div>
+        <div class="hpanel-meta"><span class="hpanel-num">01</span><p class="hpanel-cap">L'Atlantis 42 au mouillage</p></div>
       </article>
 
-      <!-- Remplacer par votre photo : photo-2.jpg -->
+      <!-- Photo : photo-2.jpg -->
       <article class="hpanel hp-portrait" style="--d:.1s">
-        <div class="hpanel-frame"><div class="photo-media" data-name="photo-2.jpg"></div></div>
-        <div class="hpanel-meta"><span class="hpanel-num">02</span><p class="hpanel-cap">E-Foil électrique</p></div>
+        <div class="hpanel-frame"><div class="photo-media" style="background-image:url('photo-2.jpg')"></div></div>
+        <div class="hpanel-meta"><span class="hpanel-num">02</span><p class="hpanel-cap">Champagne Maison Perla</p></div>
       </article>
 
-      <!-- Remplacer par votre photo : photo-3.jpg -->
-      <article class="hpanel hp-square" style="--d:.15s">
-        <div class="hpanel-frame"><div class="photo-media" data-name="photo-3.jpg"></div></div>
-        <div class="hpanel-meta"><span class="hpanel-num">03</span><p class="hpanel-cap">Apéritif à bord</p></div>
-      </article>
-
-      <!-- Remplacer par votre photo : photo-4.jpg -->
-      <article class="hpanel hp-portrait" style="--d:.05s">
-        <div class="hpanel-frame"><div class="photo-media" data-name="photo-4.jpg"></div></div>
-        <div class="hpanel-meta"><span class="hpanel-num">04</span><p class="hpanel-cap">Plateforme de bain</p></div>
-      </article>
-
-      <!-- Remplacer par votre photo : photo-5.jpg -->
-      <article class="hpanel hp-landscape" style="--d:.1s">
-        <div class="hpanel-frame"><div class="photo-media" data-name="photo-5.jpg"></div></div>
-        <div class="hpanel-meta"><span class="hpanel-num">05</span><p class="hpanel-cap">Coucher de soleil en mer</p></div>
-      </article>
-
-      <!-- Remplacer par votre photo : photo-6.jpg -->
+      <!-- Photo : photo-3.jpg -->
       <article class="hpanel hp-portrait" style="--d:.15s">
-        <div class="hpanel-frame"><div class="photo-media" data-name="photo-6.jpg"></div></div>
-        <div class="hpanel-meta"><span class="hpanel-num">06</span><p class="hpanel-cap">Champagne Maison Perla</p></div>
+        <div class="hpanel-frame"><div class="photo-media" style="background-image:url('photo-3.jpg')"></div></div>
+        <div class="hpanel-meta"><span class="hpanel-num">03</span><p class="hpanel-cap">Apéritif dînatoire à bord</p></div>
+      </article>
+
+      <!-- Photo : photo-4.jpg -->
+      <article class="hpanel hp-portrait" style="--d:.05s">
+        <div class="hpanel-frame"><div class="photo-media" style="background-image:url('photo-4.jpg')"></div></div>
+        <div class="hpanel-meta"><span class="hpanel-num">04</span><p class="hpanel-cap">L'art de recevoir en mer</p></div>
+      </article>
+
+      <!-- Photo : photo-5.jpg -->
+      <article class="hpanel hp-portrait" style="--d:.1s">
+        <div class="hpanel-frame"><div class="photo-media" style="background-image:url('photo-5.jpg')"></div></div>
+        <div class="hpanel-meta"><span class="hpanel-num">05</span><p class="hpanel-cap">Coucher de soleil sur la Méditerranée</p></div>
       </article>
 
       <!-- Invitation finale -->
