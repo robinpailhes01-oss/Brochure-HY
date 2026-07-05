@@ -580,6 +580,7 @@ body.ready .hz { animation: heroUp 1.15s var(--ease) forwards; animation-delay: 
    6 · CHAPITRE 03 — CÉLÉBRER : PARTENAIRE (crépuscule)
    =========================================================== */
 .partner { background: linear-gradient(180deg, var(--dusk), var(--cream)); padding: 150px 0 160px; text-align: center; overflow: hidden; }
+.partner .eyebrow { display: block; margin-bottom: 28px; }
 .partner-name {
   font-family: var(--ff-display); font-weight: 400;
   font-size: clamp(3rem, 7vw, 5rem); line-height: 1.05; color: var(--navy);
@@ -605,10 +606,7 @@ body.ready .hz { animation: heroUp 1.15s var(--ease) forwards; animation-delay: 
 @keyframes float { from { transform: translate(-50%,-50%); } to { transform: translate(-46%,-56%); } }
 .cta .wrap { position: relative; z-index: 2; }
 .cta .eyebrow { display: block; margin-bottom: 28px; }
-.cta-night {
-  font-family: var(--ff-display); font-style: italic; font-size: 1.15rem;
-  color: rgba(245,240,232,0.55); margin-bottom: 20px;
-}
+.cta .chapter-name { color: var(--cream); }
 .cta h2 {
   font-family: var(--ff-display); font-weight: 400;
   font-size: clamp(2.3rem, 6vw, 4.2rem); line-height: 1.12;
@@ -769,9 +767,9 @@ body.ready .hz { animation: heroUp 1.15s var(--ease) forwards; animation-delay: 
 
 <!-- RAIL DES CHAPITRES -->
 <nav class="rail" id="rail" aria-label="Chapitres">
-  <a class="rail-item" href="#ch1"><span class="rail-dot"></span><span class="rail-label">01 · Embarquer</span></a>
-  <a class="rail-item" href="#ch2"><span class="rail-dot"></span><span class="rail-label">02 · Naviguer</span></a>
-  <a class="rail-item" href="#ch3"><span class="rail-dot"></span><span class="rail-label">03 · Célébrer</span></a>
+  <a class="rail-item" href="#ch1"><span class="rail-dot"></span><span class="rail-label">01 · À bord</span></a>
+  <a class="rail-item" href="#ch2"><span class="rail-dot"></span><span class="rail-label">02 · Nos offres</span></a>
+  <a class="rail-item" href="#contact"><span class="rail-dot"></span><span class="rail-label">03 · Réserver</span></a>
 </nav>
 
 <!-- ============================================================
@@ -792,11 +790,11 @@ body.ready .hz { animation: heroUp 1.15s var(--ease) forwards; animation-delay: 
     </h1>
     <p class="hero-sub hz" style="--hd:.75s">Offres entreprises · Yacht privatisé</p>
     <div class="hero-actions hz" style="--hd:.95s">
-      <a class="btn-ghost" id="heroBtn" href="#ch1">Commencer la journée</a>
+      <a class="btn-ghost" id="heroBtn" href="#ch2">Découvrir nos offres</a>
     </div>
   </div>
 
-  <div class="scroll-cue" aria-hidden="true"><span>Larguer les amarres</span><span class="track"></span></div>
+  <div class="scroll-cue" aria-hidden="true"><span>Découvrir</span><span class="track"></span></div>
 </header>
 
 <!-- ============================================================
@@ -807,8 +805,7 @@ body.ready .hz { animation: heroUp 1.15s var(--ease) forwards; animation-delay: 
     <div class="chapter reveal">
       <span class="chapter-num">01</span>
       <div class="chapter-info">
-        <span class="eyebrow">Chapitre premier</span>
-        <span class="chapter-name">Embarquer</span>
+        <span class="chapter-name">Bienvenue à bord</span>
       </div>
     </div>
 
@@ -818,9 +815,9 @@ body.ready .hz { animation: heroUp 1.15s var(--ease) forwards; animation-delay: 
       <span class="lm"><span class="ln" style="--dd:.34s">en Méditerranée</span></span>
     </h2>
     <p class="intro-lede reveal" style="--d:.3s">
-      Séminaires, incentives, réceptions clients ou moments de cohésion :
-      un yacht entièrement privatisé, à quelques minutes du Port de Carnon,
-      pour transformer vos événements d'entreprise en souvenirs d'exception.
+      Séminaire, sortie d'équipe ou invitation de clients : embarquez sur
+      notre yacht, privatisé pour vous, au départ du Port de Carnon.
+      Vous profitez, on s'occupe de tout.
     </p>
 
     <div class="stats">
@@ -838,7 +835,6 @@ body.ready .hz { animation: heroUp 1.15s var(--ease) forwards; animation-delay: 
       </div>
     </div>
 
-    <p class="interlude reveal" style="--d:.15s">Les amarres sont larguées, le soleil monte sur Carnon.</p>
   </div>
 </section>
 
@@ -866,14 +862,13 @@ body.ready .hz { animation: heroUp 1.15s var(--ease) forwards; animation-delay: 
     <div class="chapter reveal">
       <span class="chapter-num">02</span>
       <div class="chapter-info">
-        <span class="eyebrow">Chapitre deux</span>
-        <span class="chapter-name">Naviguer</span>
+        <span class="chapter-name">Nos offres</span>
       </div>
     </div>
 
     <div class="head reveal">
-      <h2>Deux escales, une même <em>exigence</em></h2>
-      <p>Des prestations pensées pour l'entreprise — capitaine et carburant inclus.</p>
+      <h2>Deux formules, <em>tout est inclus</em></h2>
+      <p>Capitaine et carburant compris. Choisissez la durée, on s'occupe du reste.</p>
       <div class="rule"></div>
     </div>
 
@@ -935,7 +930,7 @@ body.ready .hz { animation: heroUp 1.15s var(--ease) forwards; animation-delay: 
       <!-- Photo : photo-1.jpg (remplacer le fichier pour changer le visuel) -->
       <article class="hpanel hp-landscape" style="--d:.05s">
         <div class="hpanel-frame"><div class="photo-media" style="background-image:url('photo-1.jpg')"></div></div>
-        <div class="hpanel-meta"><span class="hpanel-num">01</span><p class="hpanel-cap">L'Atlantis 42 au mouillage</p></div>
+        <div class="hpanel-meta"><span class="hpanel-num">01</span><p class="hpanel-cap">L'Atlantis 42, notre yacht</p></div>
       </article>
 
       <!-- Photo : photo-2.jpg -->
@@ -953,7 +948,7 @@ body.ready .hz { animation: heroUp 1.15s var(--ease) forwards; animation-delay: 
       <!-- Photo : photo-4.jpg -->
       <article class="hpanel hp-portrait" style="--d:.05s">
         <div class="hpanel-frame"><div class="photo-media" style="background-image:url('photo-4.jpg')"></div></div>
-        <div class="hpanel-meta"><span class="hpanel-num">04</span><p class="hpanel-cap">L'art de recevoir en mer</p></div>
+        <div class="hpanel-meta"><span class="hpanel-num">04</span><p class="hpanel-cap">La table dressée à bord</p></div>
       </article>
 
       <!-- Photo : photo-5.jpg -->
@@ -964,8 +959,8 @@ body.ready .hz { animation: heroUp 1.15s var(--ease) forwards; animation-delay: 
 
       <!-- Invitation finale -->
       <div class="hpanel-end">
-        <p>Votre événement<br />prendra vie ici.</p>
-        <a class="btn-gold" href="#contact">Réserver votre journée</a>
+        <p>Envie d'embarquer<br />avec votre équipe ?</p>
+        <a class="btn-gold" href="#contact">Réserver votre sortie</a>
       </div>
 
     </div>
@@ -984,8 +979,8 @@ body.ready .hz { animation: heroUp 1.15s var(--ease) forwards; animation-delay: 
 <section class="exp">
   <div class="wrap">
     <div class="head reveal">
-      <span class="eyebrow">Ce qui nous distingue</span>
-      <h2>Une signature en trois <em>temps</em></h2>
+      <span class="eyebrow">Pourquoi Harmonie Yacht</span>
+      <h2>Ce qui fait la <em>différence</em></h2>
       <div class="rule"></div>
     </div>
 
@@ -996,8 +991,8 @@ body.ready .hz { animation: heroUp 1.15s var(--ease) forwards; animation-delay: 
             <path d="M24 5 L43 24 L24 43 L5 24 Z"/><path d="M15 24 L24 15 L33 24 L24 33 Z"/>
           </svg>
         </div>
-        <h3>Exclusivité totale</h3>
-        <p>Le yacht rien que pour vous et vos invités. Aucun partage, aucun compromis — une privatisation à 100 %.</p>
+        <h3>Le yacht rien que pour vous</h3>
+        <p>À bord, il n'y a que votre équipe, vos invités et le capitaine. Personne d'autre.</p>
         <div class="rule"></div>
       </div>
 
@@ -1008,7 +1003,7 @@ body.ready .hz { animation: heroUp 1.15s var(--ease) forwards; animation-delay: 
           </svg>
         </div>
         <h3>E-Foil électrique</h3>
-        <p>La sensation de voler au-dessus de l'eau. Une expérience silencieuse et grisante, réservée au Grand Large Prestige.</p>
+        <p>Une planche électrique qui glisse au-dessus de l'eau. Facile à essayer, et vos équipes en parleront longtemps. Inclus dans l'offre Grand Large Prestige.</p>
         <div class="rule"></div>
       </div>
 
@@ -1019,38 +1014,27 @@ body.ready .hz { animation: heroUp 1.15s var(--ease) forwards; animation-delay: 
           </svg>
         </div>
         <h3>Champagne Maison Perla</h3>
-        <p>Une cuvée d'exception servie à bord, fruit de notre partenariat avec la Maison Perla. L'élégance jusque dans le verre.</p>
+        <p>Une bouteille de champagne Perla offerte à chaque sortie, servie fraîche à bord.</p>
         <div class="rule"></div>
       </div>
     </div>
-
-    <p class="interlude reveal" style="--d:.15s">La lumière s'adoucit, l'horizon se teinte d'or.</p>
   </div>
 </section>
 
 <!-- ============================================================
      CHAPITRE 03 · CÉLÉBRER — PARTENAIRE (crépuscule)
      ============================================================ -->
-<section class="partner" id="ch3">
+<section class="partner">
   <div class="wrap">
-    <div class="chapter reveal">
-      <span class="chapter-num">03</span>
-      <div class="chapter-info">
-        <span class="eyebrow">Chapitre trois</span>
-        <span class="chapter-name">Célébrer</span>
-      </div>
-    </div>
-
+    <span class="eyebrow reveal">Notre partenaire champagne</span>
     <h2 class="partner-name reveal" style="--d:.05s">
       <span class="lm"><span class="ln" style="--dd:.1s">Maison <em>Perla</em></span></span>
     </h2>
     <p class="partner-text reveal" style="--d:.2s">
-      À bord d'Harmonie Yacht, chaque instant se célèbre avec une cuvée signée Maison Perla.
-      Un champagne choisi pour sa finesse et sa fraîcheur maritime, qui accompagne vos moments
-      d'affaires comme vos réussites collectives. Une rencontre entre deux maisons attachées
-      au même art de recevoir.
+      Nous avons choisi la Maison Perla pour accompagner vos sorties :
+      un champagne fin, que nous servons frais à bord.
+      Une bouteille est offerte avec chaque formule.
     </p>
-    <p class="partner-sign reveal" style="--d:.3s">« Le luxe est dans le détail. »</p>
   </div>
 </section>
 
@@ -1075,9 +1059,14 @@ body.ready .hz { animation: heroUp 1.15s var(--ease) forwards; animation-delay: 
   <canvas class="cta-canvas" id="ctaCanvas"></canvas>
   <div class="cta-glow" aria-hidden="true"></div>
   <div class="wrap">
-    <p class="cta-night reveal">La nuit tombe sur Carnon. Il ne reste que l'essentiel.</p>
-    <span class="eyebrow reveal" style="--d:.05s">Réservation entreprises</span>
-    <h2 class="reveal" style="--d:.1s">Votre prochaine expérience en mer <em>commence ici</em></h2>
+    <div class="chapter reveal">
+      <span class="chapter-num">03</span>
+      <div class="chapter-info">
+        <span class="chapter-name">Réserver</span>
+      </div>
+    </div>
+    <span class="eyebrow reveal" style="--d:.05s">Contact &amp; réservation</span>
+    <h2 class="reveal" style="--d:.1s">Organisons votre prochaine <em>sortie en mer</em></h2>
     <div class="cta-contacts reveal" style="--d:.2s">
       <a class="cta-email" id="ctaEmail" href="mailto:harmonieyacht@gmail.com">harmonieyacht@gmail.com</a>
       <a class="cta-insta" href="https://instagram.com/harmonieyacht" target="_blank" rel="noopener">Instagram · @harmonieyacht</a>
@@ -1089,7 +1078,7 @@ body.ready .hz { animation: heroUp 1.15s var(--ease) forwards; animation-delay: 
 <!-- FOOTER -->
 <footer class="footer">
   <p>Harmonie Yacht <span class="sep">·</span> Carnon-Port <span class="sep">·</span> Méditerranée</p>
-  <button class="to-top" id="toTop">Revenir au matin</button>
+  <button class="to-top" id="toTop">Retour en haut</button>
 </footer>
 
 <!-- LIGHTBOX -->
@@ -1337,8 +1326,8 @@ body.ready .hz { animation: heroUp 1.15s var(--ease) forwards; animation-delay: 
   var topbar = document.getElementById("topbar");
   var railItems = document.querySelectorAll(".rail-item");
   var rail = document.getElementById("rail");
-  var ch2 = document.getElementById("ch2"), ch3 = document.getElementById("ch3");
   var cta = document.getElementById("contact");
+  var ch2 = document.getElementById("ch2"), ch3 = cta;
   var waterVisible = true;
 
   if ("IntersectionObserver" in window && water) {
